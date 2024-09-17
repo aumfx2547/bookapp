@@ -1,0 +1,55 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load compress %}
+{% block title %} Login | AT-Badminton {% endblock %}
+
+{% block banner %}
+{% endblock %}
+
+{% block menu %}
+{% endblock %}
+
+{% block content %}
+
+<div style="padding-left: 35%; padding-top: 0%;">
+    <div class="p-4 border border-gray-200 rounded-lg shadow-lg bg-green-200" style="margin-top: 40px; max-width: 450px;">
+        <h1 class="text-center font-prompt text-2xl font-bold mb-4">เข้าสู่ระบบ</h1>
+
+            {% if messages %}
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-4 rounded relative" role="alert">
+                {% for alert in messages %}
+                    <div class='text-center font-prompt font-bold'>{{alert}}</div>
+                {% endfor %}
+              </div>
+            {% endif %}
+            <form method='post' action='loginForm'>
+                {% csrf_token %}
+                    <div class="field">
+                        <label class="label text-center font-medium font-prompt" style="padding-right: 380px;">Username</label>
+                        <div class="control">
+                            <input class="input w-96 h-8 border border-gray-200 bg-white rounded-lg shadow-xl font-medium font-prompt px-4" style="width: 415px; height: 40px;" type="text" name='username' placeholder="ชื่อผู้ใช้">
+                        </div>
+                    </div>
+        
+                    <div class="field py-2">
+                        <label class="label text-center font-medium font-prompt" style="padding-right: 340px;">Password</label>
+                        <div class="control">
+                            <input class="input w-96 h-8 border border-gray-200 bg-white rounded-lg shadow-xl font-medium font-prompt px-4" style="width: 415px; height: 40px;" type="password" name='password' placeholder="รหัสผ่าน">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-start py-4">
+                        <div>
+                            <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 font-prompt">
+                                สมัคร
+                            </button>
+                            <button class="text-red-700 px-4 py-2 rounded hover:border-amber-500 font-prompt">
+                                ยกเลิก
+                            </button>
+                        </div>
+                    </div>                
+        </h1>
+    </div>
+</div>
+
+{% endblock %}

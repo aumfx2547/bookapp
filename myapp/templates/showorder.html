@@ -1,0 +1,43 @@
+{% extends '_base.html' %}
+{% block title %} สั่งซื้อสำเร็จ | Purchased Successfully {% endblock %}
+{% load static %}
+{% load compress %}
+{% load humanize %}
+
+{% block banner %}
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center min-h-screen font-prompt" style="padding-bottom: 80px; margin-top: -35px;">
+  <h3 class="text-2xl font-semibold mb-6 animate-fadeIn">รายการสั่งซื้อของฉัน</h3>
+  <div class="w-full max-w-2xl space-y-4 animate-slideIn">
+      {% for order in showmyorder %}
+      <div class="border border-gray-300 shadow-lg rounded-lg p-6 transform transition-transform duration-500 ease-out hover:scale-105">
+          <div class="border-b pb-4 mb-4">
+              <div class="flex justify-between">
+                  <div>
+                      <h5 class="text-lg font-medium">หมายเลข order: {{order.order_id}}</h5>
+                      <p class="text-sm text-gray-600">วันที่สั่ง: {{order.order_date}}</p>
+                      <p class="text-sm text-gray-600">ชื่อผู้สั่งซื้อ: {{order.order_username}}</p>
+                      <p class="text-sm text-gray-600">ราคารวม: {{order.order_total}}</p>
+                  </div>
+                  <div class="text-right">
+                      <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">สถานะ</span>
+                  </div>
+              </div>
+          </div>
+          <div>
+              <p class="text-sm">ที่อยู่จัดส่ง: {{order.order_address}}, โทร: {{order.order_tel}}</p>
+              <p class="text-sm">รายการสินค้า: 
+                  {% for p in dtl %}
+                  {% if p.order_id_ref_id ==  order.order_id %}
+                  {{p.p_id}} 
+                  {% endif %}
+                  {% endfor %}
+              </p>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+</div>
+{% endblock content %}

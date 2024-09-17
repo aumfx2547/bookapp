@@ -1,0 +1,59 @@
+{% extends '_base.html' %}
+{% block title %} ชำระเงิน | Checkout {% endblock %}
+{% load static %}
+{% load compress %}
+{% load humanize %}
+
+{% block banner %}{% endblock %}
+
+{% block content %}
+
+<div class="container mx-auto flex justify-center items-center px-4 animate-slide-up" style="padding-top: -90px; padding-bottom: 80px;">
+    <div class="w-full max-w-2xl bg-white shadow-lg rounded-md p-6">
+        <h1 class="text-2xl font-bold text-center mb-4 font-prompt" style="margin-top: -50px;">สรุปรายการสั่งซื้อ</h1>
+        <form action="/checkout/" method="POST">
+            {% csrf_token %}
+            <p class="mb-4 text-lg font-prompt">ชื่อผู้สั่งสินค้า: {{user.first_name}} {{user.last_name}}</p>
+            <p class="mb-4 text-lg font-prompt">E-mail: {{user.email}}</p>
+            <p class="mb-4 text-lg font-prompt">วันที่สั่ง: {{nowtime}}</p>
+            
+            <label for="order_address" class="block text-lg font-prompt mb-2">ที่อยู่จัดส่ง</label>
+            <textarea rows="2" cols="50" id="order_address" name="order_address" placeholder="กรุณาระบุที่อยู่จัดส่ง" required class="w-full border-gray-300 rounded-md p-2 font-prompt transition-transform duration-300 ease-in-out"></textarea>
+            
+            <label for="order_tel" class="block text-lg font-prompt mt-4 mb-2">โทร</label>
+            <input type="number" id="order_tel" name="order_tel" placeholder="กรอกเบอร์โทรศัพท์" required class="w-full border-gray-300 rounded-md p-2 font-prompt mb-6 transition-transform duration-300 ease-in-out">
+            
+            <table class="table-auto w-full mb-6">
+                <thead>
+                  <tr class="bg-gray-100">
+                    <th class="px-4 py-2 text-left font-prompt">รายการสินค้า</th>
+                    <th class="px-4 py-2 text-left font-prompt w-24">จำนวน</th>
+                    <th class="px-4 py-2 text-left font-prompt w-24">ราคา</th>
+                    <th class="px-4 py-2 text-left font-prompt">รวม</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for cart_item in item %}
+                  <tr>
+                    <td class="px-4 py-2 font-prompt">{{cart_item.product_id.product_name}}</td>
+                    <td class="px-4 py-2 font-prompt">{{cart_item.product_qty}}</td>
+                    <td class="px-4 py-2 font-prompt">{{cart_item.product_price | intcomma }}</td>
+                    <td class="px-4 py-2 font-prompt">{% widthratio cart_item.product_qty 1 cart_item.product_price %}</td>
+                  </tr>
+                  {% endfor %}
+                  <tr class="bg-gray-100">
+                    <td colspan="3" class="text-right px-4 py-2 font-prompt">รวมทั้งสิ้น</td>
+                    <td class="px-2 py-2 font-prompt">{{total_order | intcomma }} บาท</td>
+                  </tr>
+                </tbody>
+            </table>
+            
+            <div class="flex justify-between">
+                <input type="submit" class="btn btn-primary bg-blue-500 text-white px-4 py-2 rounded-md font-prompt cursor-pointer transition-transform transform hover:scale-105 duration-300 ease-in-out" value="ยืนยัน">
+                <a href="{% url 'cart' %}" class="btn btn-warning bg-yellow-400 text-white px-4 py-2 rounded-md font-prompt transition-transform transform hover:scale-105 duration-300 ease-in-out">ย้อนกลับ</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

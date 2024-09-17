@@ -1,0 +1,42 @@
+{% extends "_base.html" %}
+
+{% load static %}
+{% load compress %}
+{% load humanize %}
+
+{% block title %} AT-Badminton | {{p.product_name}} {% endblock %}
+
+{% block content %}
+
+<main class="flex items-center justify-center h-max" style="padding-left: 25%; padding-top: 0px;">
+    <div class="flex items-start max-w-full h-max" style="margin-top: -56px; padding-bottom: 80px;">
+        <div class="flex items-start w-max h-max px-4 py-4" style="max-width: 100%;">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="border border-gray-200 p-4 rounded-lg bg-white">
+                    <img src="{% if p.product_image3 %}{{ p.product_image3.url }}{% else %}/media/default.jpg{% endif %}" alt="1" class="h-max object-cover rounded">
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold mb-2 font-bold font-prompt " style="max-width: 100%;">{{p.product_name}}</h2>
+                    <p class="text-slate-900 mb-4 font-prompt text-xl font-bold" style = 'margin-top: 15px;'>จำนวนสินค้า : {{p.product_qty}} ชิ้น</p>
+                    <p class="text-red-700 mb-4 font-prompt text-2xl font-bold" style = 'margin-top: 15px;'>ราคา : {{p.product_price | intcomma }} บาท</p>
+                    <div class="py-4">
+                        <a class="bg-green-500 text-white px-2 py-2 rounded hover:bg-green-700 font-prompt">สั่งซื้อสินค้า</a>
+                        <a href='addtocart/{{p.product_id}}' class="bg-blue-500 text-white px-2 py-2 rounded hover:bg-blue-600 font-prompt">เพิ่มลงตะกร้า</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div style="padding-left: 30%; padding-top: 0px;">
+    <div class="font-semibold text-2xl font-prompt padding-right: 50%;">
+        รายละเอียดสินค้า
+    </div>
+    <div style="padding-top: 10px; padding-bottom: 30px;">
+        <p class="text-sm font-prompt" style="max-width: 450px;">
+            <div class="font-prompt" style="max-width: 650px;">{{p.product_detail | linebreaks }}</div>
+        </p>
+    </div>
+</div>
+{% endblock content %}

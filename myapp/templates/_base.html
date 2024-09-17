@@ -1,0 +1,160 @@
+{% load compress %}
+{% load static %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content=
+		"width=device-width, initial-scale=1.0">
+	<title>{% block title %} AT-Badminton {% endblock %}</title>
+	<link href="https://fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css2?family=Bungee+Tint&display=swap" rel="stylesheet">
+		
+	<nav class="max-w-full gap-8 px-4 py-4 flex items-center justify-between shadow-xl">
+		{% if user.is_authenticated %}
+				<div class="items-center">
+					<a href="/" class="font-bold font-prompt">
+						AT-Badminton | ยินดีต้อนรับคุณ {{user.first_name}} !
+					</a>
+				</div>
+				<div class="ml-auto flex gap-6 items-center">
+					<ul class="flex gap-6">
+						<li class="font-medium text-slate-700 font-prompt font-bold hover:text-red-400">
+							<a href="/">หน้าแรก</a>
+						</li>
+						<li class="font-medium text-slate-700 font-prompt font-bold hover:text-red-400">
+							<a href="{% url 'rackets' %}">ไม้แบดมินตัน</a>
+						</li>
+						<li class="font-medium text-slate-700 font-prompt font-bold hover:text-red-400">
+							<a href="{% url 'shoes' %}">รองเท้า</a>
+						</li>
+						<li class="font-medium text-slate-700 font-prompt font-bold hover:text-red-400">
+							<a href="{% url 'bag' %}">กระเป๋า</a>
+						</li>
+						<li class="font-medium text-slate-700 font-prompt font-bold hover:text-red-400">
+							<a href="{% url 'accessories' %}">อุปกรณ์เสริม</a>
+						</li>
+						<li class="font-medium text-slate-700 font-prompt font-bold hover:text-red-400">
+							<a href="{% url 'product_list' %}">รายการสินค้าทั้งหมด</a>
+						</li>
+						<li class="font-medium text-slate-700 font-prompt font-bold hover:text-red-400">
+							<a href="{% url 'cart' %}">ตะกร้าสินค้า</a>
+						</li>
+					</ul>
+					<a href="{% url 'logout' %}" class="bg-amber-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded font-prompt">ออกจากระบบ</a>
+				</div>
+			{% else %}
+				<div class="items-center">
+					<a href="/" class="font-bold font-prompt">
+						AT-Badminton
+					</a>
+				</div>
+				<div class="ml-auto flex gap-6 items-center">
+					<ul class="flex gap-6">
+						<li class="font-medium text-slate-700 font-prompt font-bold hover:text-red-400">
+							<a href="/">หน้าแรก</a>
+						</li>
+						<li class="font-medium text-slate-700 font-prompt font-bold hover:text-red-400">
+							<a href="{% url 'rackets' %}">ไม้แบดมินตัน</a>
+						</li>
+						<li class="font-medium text-slate-700 font-prompt font-bold hover:text-red-400">
+							<a href="{% url 'shoes' %}">รองเท้า</a>
+						</li>
+						<li class="font-medium text-slate-700 font-prompt font-bold hover:text-red-400">
+							<a href="{% url 'bag' %}">กระเป๋า</a>
+						</li>
+						<li class="font-medium text-slate-700 font-prompt font-bold hover:text-red-400">
+							<a href="{% url 'accessories' %}">อุปกรณ์เสริม</a>
+						</li>
+					</ul>
+					<a href="{% url 'login' %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded font-prompt">เข้าสู่ระบบ</a>
+					<a href="{% url 'signup' %}" class="bg-amber-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded font-prompt">สมัครสมาชิก</a>
+				</div>
+		{% endif %}
+	</nav>
+
+
+	{% compress css %}
+	<link rel="stylesheet"
+		href="{% static 'src/output.css' %}">
+	{% endcompress %}
+	<div class="w-full overflow-hidden shadow-lg">
+		{% block banner %}
+		<img src="{% static 'index_slide/1.jpg' %}" alt="" class="object-cover w-full h-full">
+		{% endblock %}
+	</div>
+	
+</head>
+
+{% block menu %}
+<div class="">
+	<aside class="bg-white rounded-lg" style="height: 40px; width: 350px; margin-top: 80px; margin-left: 80px;">
+		<div class="w-128 p-4 border border-gray-200 bg-white rounded-lg shadow-xl">
+			<div class="text-center text-slate-900 font-bold font-prompt">
+				เมนู | AT Badminton
+			</div>
+		
+			<div class="mt-4">
+				<details class="mb-2 transition-all duration-300 ease-in-out open:mt-4 open:opacity-100">
+					<summary class="cursor-pointer text-lg font-prompt hover:text-red-700 transition-colors duration-300"><a href="{% url 'rackets' %}">ไม้แบดมินตัน RACKETS</a></summary>
+					<ul class="ml-4 mt-2 list-disc">
+						<li class="font-prompt py-2 text-red-700 font-bold"><a href="{% url 'yonex' %}">YONEX</a></li>
+						<li class="font-prompt text-red-700 font-bold"><a href="{% url 'victor' %}">VICTOR</a></li>
+					</ul>
+				</details>
+		
+				<details class="mb-2 transition-all duration-300 ease-in-out open:mt-4 open:opacity-100">
+					<summary class="cursor-pointer text-lg font-prompt hover:text-red-700 transition-colors duration-300"><a href="{% url 'shoes' %}">รองเท้าแบดมินตัน SHOES</a></summary>
+					<ul class="ml-4 mt-2 list-disc">
+						<li class="font-prompt py-2 text-red-700 font-bold"><a href="{% url 'sh_yonex' %}">YONEX</a></li>
+						<li class="font-prompt text-red-700 font-bold"><a href="{% url 'sh_victor' %}">VICTOR</a></li>
+					</ul>
+				</details>
+		
+				<details class="mb-2 transition-all duration-300 ease-in-out open:mt-4 open:opacity-100">
+					<summary class="cursor-pointer text-lg font-prompt hover:text-red-700 transition-colors duration-300"><a href="{% url 'bag' %}">กระเป๋าแบดมินตัน BAGS</a></summary>
+					<ul class="ml-4 mt-2 list-disc">
+						<li class="font-prompt py-2 text-red-700 font-bold"><a href="{% url 'bag_yonex' %}">YONEX</a></li>
+						<li class="font-prompt text-red-700 font-bold"><a href="{% url 'bag_victor' %}">VICTOR</a></li>
+					</ul>
+				</details>
+	
+				<details class="mb-2 transition-all duration-300 ease-in-out open:mt-4 open:opacity-100">
+					<summary class="cursor-pointer text-lg font-prompt hover:text-red-700 transition-colors duration-300"><a href="{% url 'accessories' %}">อุปกรณ์เสริม ACCESSORIES</a></summary>
+					<ul class="ml-4 mt-2 list-disc">
+						<li class="font-prompt py-2 text-red-700 font-bold"><a href="{% url 'grips' %}">กริปพันด้าม (Grips)</a></li>
+						<li class="font-prompt py-2 text-red-700 font-bold"><a href="{% url 'wristband' %}">รัดข้อมือซับเหงื่อ (Wristband)</a></li>
+						<li class="font-prompt py-2 text-red-700 font-bold"><a href="{% url 'headband' %}">ผ้าคาดหัว (Headband)</a></li>
+						<li class="font-prompt py-2 text-red-700 font-bold"><a href="{% url 'socks' %}">ถุงเท้า (Socks)</a></li>
+						<li class="font-prompt py-2 text-red-700 font-bold"><a href="{% url 'cushion' %}">Cushion Wrap</a></li>
+						<li class="font-prompt py-2 text-red-700 font-bold"><a href="{% url 'towel' %}">ผ้าเช็ดตัว</a></li>
+					</ul>
+				</details>
+			</div>
+		</div>
+	</aside>
+</div>
+
+{% endblock %}
+
+<body>
+
+
+	<div class="container max-w-full" style="padding-left: 80px;">
+		{% block content %}
+		
+		{% endblock content %}
+	</div>
+	
+	<footer>
+	</footer>
+</body>
+
+</html>

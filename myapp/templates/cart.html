@@ -1,0 +1,47 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load compress %}
+{% load humanize %}
+
+{% block title %} ตะกร้าสินค้า {% endblock %}
+
+{% block banner %}{% endblock %}
+{% block menu %}{% endblock %}
+
+{% block content %}
+
+<div class="flex justify-center items-center fade-in" style="padding-right: 50px; padding-top: 50px;">
+  <table class="w-full max-w-4xl border-b border-slate-800">
+    <thead class="text-center text-slate-700">
+      <tr class="justify-between px-4">
+        <th class="px-6 py-3 text-xl font-bold font-prompt">รายการสินค้า</th>
+        <th class="px-6 py-3 text-xl font-bold font-prompt">จำนวนสินค้า</th>
+        <th class="px-6 py-3 text-xl font-bold font-prompt">ราคาสินค้า</th>
+        <th class="px-6 py-3 text-xl font-bold font-prompt">ราคารวม</th>
+        <th class="px-6 py-3 text-xl font-bold font-prompt">ลบ</th>
+      </tr>
+    </thead>
+    {% for cart_item in item %}
+    <tbody class="bg-white divide-y divide-gray-200 border-b border-gray-500">
+      <tr class="text-center font-prompt">
+        <td class="px-6 py-4 whitespace-nowrap">{{cart_item.product_id.product_name}}</td>
+        <td class="px-6 py-4 whitespace-nowrap">{{cart_item.product_qty}}</td>
+        <td class="px-6 py-4 whitespace-nowrap">{{cart_item.product_price | intcomma }}</td>
+        <td class="px-6 py-4 whitespace-nowrap">
+            {% with item_total=cart_item.product_qty|time:cart_item.product_price %}
+                {{ item_total|intcomma }} บาท
+            {% endwith %}
+          </td>
+        <td class="px-6 py-4 whitespace-nowrap">
+          <a href='/del_cart_item/{{cart_item.product_id_id}}' class="text-red-600 hover:text-red-800 transition-colors duration-300 ease-in-out">ลบ</a>
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+<div class='flex' style="padding-top: 5%; padding-left: 45%;">
+  <a href="{% url 'checkout' %}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 font-prompt transition-transform transform hover:scale-105 duration-300 ease-in-out">ชำระเงิน</a>
+</div>
+
+{% endblock %}
