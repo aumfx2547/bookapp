@@ -45,10 +45,24 @@
                     <td colspan="3" class="text-right px-4 py-2 font-prompt">รวมทั้งสิ้น</td>
                     <td class="px-2 py-2 font-prompt">{{total_order | intcomma }} บาท</td>
                   </tr>
+
                 </tbody>
             </table>
+
+            <div>
+              <p class='mb-2 text-lg font-prompt'>ช่องทางการชำระเงิน</p>
+              <input type="radio" id="pay1" name="payment_method">
+              <label class='mb-2 text-lg font-prompt' for="pay1">Mobile Banking</label><br>
+              
+              <input type="radio" id="pay2" name="payment_method">
+              <label class='mb-2 text-lg font-prompt' for="pay2">PayPal</label><br>
+              
+              <input type="radio" id="pay3" name="payment_method">
+              <label class='mb-2 text-lg font-prompt' for="pay3">เก็บเงินปลายทาง</label><br>
+            </div>
             
-            <div class="flex justify-between">
+            
+            <div class="flex justify-between py-4">
                 <input type="submit" class="btn btn-primary bg-blue-500 text-white px-4 py-2 rounded-md font-prompt cursor-pointer transition-transform transform hover:scale-105 duration-300 ease-in-out" value="ยืนยัน">
                 <a href="{% url 'cart' %}" class="btn btn-warning bg-yellow-400 text-white px-4 py-2 rounded-md font-prompt transition-transform transform hover:scale-105 duration-300 ease-in-out">ย้อนกลับ</a>
             </div>

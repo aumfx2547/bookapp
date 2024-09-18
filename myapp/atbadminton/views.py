@@ -186,16 +186,16 @@ def addUser(request):
     email = request.POST['email']
     password = request.POST['password']
     repassword = request.POST['repassword']
-
+    
     if password == repassword:
         if User.objects.filter(username=username).exists():
             #print("Username นี้ซ้ำ")
             messages.success(request, 'Username นี้ซ้ำ')
-            return redirect("/signup")
+            return redirect("/signup/")
         elif User.objects.filter(email=email).exists():
             #print("Email นี้ซ้ำ")
             messages.success(request, 'Email นี้ซ้ำ')
-            return redirect("/signup")
+            return redirect("/signup/")
         else:
             user = User.objects.create_user(
                 username = username,
@@ -208,7 +208,7 @@ def addUser(request):
             return redirect('/')
     else:
         messages.success(request, 'Password ไม่เท่ากับ Re-Password')
-        return redirect("/signup")
+        return redirect("/signup/")
     
 def loginForm(request):
     username = request.POST['username']
@@ -223,7 +223,7 @@ def loginForm(request):
     else:
         #แสดงว่า username, password ไม่ถูกต้อง
         messages.success(request, 'Login ไม่สำเร็จ')
-        return redirect('/login')
+        return redirect('/login/')
 
 def logout(request):
     auth.logout(request)
