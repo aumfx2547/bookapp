@@ -138,7 +138,7 @@ def checkout(request):
                 del_cart = cart_add.objects.get(product_id_id= checkout.p_id,email=user.email)
                 del_cart.delete()
             messages.success(request,'สำเร็จ')
-            return redirect('/showMyorder')
+            return redirect('/showMyorder/')
     showcart = {'item' : cart_add.objects.filter(email=user.email) , 
                 'total_order' : total_order,
                 'nowtime' : Nowtime,
